@@ -1,0 +1,45 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/auth.css">
+</head>
+
+<body>
+   <%- include('../includes/navigation.ejs') %>
+
+    <main>
+        <% if (errorMessage) { %>
+            <div  style="text-align: center;padding: 5px;color: tomato;font-family: monospace;" ><%= errorMessage %></div>
+        <% } %>
+        <form class="login-form" action="/signup" method="POST" novalidate>
+            <div class="form-control">
+                <label class="<%= (error.param === 'email') ? 'invalid' : ''%>" for="email">E-Mail</label>
+                <input 
+                class="<%= (error.param === 'email') ? 'invalid' : ''%>"
+                type="email" 
+                name="email" 
+                id="email" 
+                value="<%=email%>">
+            </div>
+            <div class="form-control">
+                <label class="<%= (error.param === 'password') ? 'invalid' : ''%>" for="password">Password</label>
+                <input
+                class="<%= (error.param === 'password') ? 'invalid' : ''%>" 
+                type="password" 
+                name="password" 
+                id="password" 
+                value="<%=password%>">
+            </div>
+            <div class="form-control">
+                <label class="<%= (error.param === 'confirmPassword') ? 'invalid' : ''%>" for="confirmPassword">Confirm Password</label>
+                <input 
+                class="<%= (error.param === 'confirmPassword') ? 'invalid' : ''%>"
+                type="password" 
+                name="confirmPassword" 
+                id="confirmPassword" 
+                value="<%=password%>">
+            </div>
+            <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+            <button class="btn" type="submit">Login</button>
+        </form>
+    </main>
+<%- include('../includes/end.ejs') %>

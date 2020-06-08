@@ -1,0 +1,34 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/orders.css">
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+        <main >
+            <div align="center" >
+            <div style="text-align: center; width: 50%;">
+            <% if (address.length <= 0) { %>
+                <h1>No Address Saved !</h1>
+            <% } else { %>
+                <form action="/create-order" method="POST" >
+                    <ul class="orders">
+                    <% address.forEach(address => { %>
+                        <li class="orders__item">
+                            <h1><%= address.name %></h1>
+                            <ul class="orders__products">
+                                <li class="orders__products-item"><%= address.details %></li>
+                            </ul>
+                            <input type="radio" name="selectedAdd" value="<%= address.details %>">
+                            <a href="/delete-add/<%= address._id %>" class="btn danger">Delete</a>
+                        </li>
+                    <% }); %>
+                    </ul>
+                    <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+                    <button type="submit" class="btn">Pay Now</button>
+                </form>
+            <% } %>
+                <a class="btn" href="/add-form">Add Address</a>
+            </div>
+        </div>
+        </main>
+        <%- include('../includes/end.ejs') %>
